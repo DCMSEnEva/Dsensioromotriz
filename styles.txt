@@ -1,0 +1,636 @@
+/* css/style.css */
+
+/* --- Variables CSS Globales --- */
+:root {
+    --primary-color: #FF69B4;      /* Rosa brillante */
+    --secondary-color: #00C49F;    /* Verde menta */
+    --accent-color: #FFD700;       /* Dorado/Amarillo */
+    --background-color: #FDF6F9;   /* Rosa muy pálido */
+    --text-color: #4A4A4A;         /* Gris oscuro */
+    --light-text-color: #7A7A7A;   /* Gris medio */
+    --card-background: #FFFFFF;     /* Blanco */
+    --header-bg: #FFFFFF;
+    --footer-bg: #4A4A4A;
+    --footer-text: #FFFFFF;
+    --border-radius-main: 12px;
+    --box-shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --box-shadow-strong: 0 6px 20px rgba(0, 0, 0, 0.1);
+
+    --font-family-base: 'Nunito', sans-serif;
+    --font-family-headings: 'Baloo 2', cursive;
+
+    --icon-stroke-color: var(--text-color);
+    --icon-fill-color: transparent;
+    --icon-size-small: 24px;
+    --icon-size-medium: 48px;
+    --icon-size-large: 64px; /* Para iconos de tarjetas principales */
+    --icon-size-heading: 32px; /* Para iconos junto a H2 */
+}
+
+/* --- Reseteo y Estilos Base --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-family-base);
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding-top: 90px; /* Ajustar según altura final del header */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* --- Tipografía --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-color);
+    line-height: 1.3;
+    margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.8rem; }
+h2 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    display: flex; /* Para alinear icono con H2 */
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre icono y texto del H2 */
+}
+h3 { font-size: 1.8rem; }
+h4 { font-size: 1.4rem; color: var(--text-color); }
+
+p {
+    margin-bottom: 1.2em;
+    font-size: 1.05rem;
+}
+.intro-paragraph { /* Para el primer párrafo de la nueva página */
+    font-size: 1.15rem;
+    color: var(--light-text-color);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover, a:focus {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin-bottom: 1.2em;
+    padding-left: 25px;
+}
+li { margin-bottom: 0.5em; }
+
+strong {
+    font-weight: 700;
+    color: var(--primary-color); /* Cambiado a primario para más énfasis en el texto */
+}
+
+/* --- Iconos SVG Globales --- */
+.heading-icon-svg { /* Para iconos junto a los H2 */
+    width: var(--icon-size-heading);
+    height: var(--icon-size-heading);
+    fill: var(--secondary-color); /* Color del icono que acompaña al H2 */
+    flex-shrink: 0; /* Para que no se encoja si el título es largo */
+}
+.inline-icon-svg { /* Iconos pequeños dentro del texto o H3 */
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    vertical-align: -0.2em;
+    margin-right: 0.4em;
+    fill: var(--secondary-color);
+    stroke: none;
+    flex-shrink: 0;
+}
+
+
+/* --- Header --- */
+header {
+    background-color: var(--header-bg);
+    padding: 0.8rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: var(--box-shadow-light);
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+header .logo a {
+    font-family: var(--font-family-headings);
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+header .logo .site-icon-svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 0.5rem;
+    fill: var(--primary-color);
+}
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+header nav ul li { margin: 0.3rem 0.8rem; }
+header nav ul li a {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    padding: 0.5rem 0.3rem;
+    border-bottom: 3px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Botón Hamburguesa */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.nav-toggle .hamburger-icon { width: 30px; height: 22px; position: relative; }
+.nav-toggle .hamburger-icon span { display: block; width: 100%; height: 3px; background-color: var(--primary-color); border-radius: 3px; position: absolute; left: 0; transition: all 0.3s ease; }
+.nav-toggle .hamburger-icon span:nth-child(1) { top: 0; }
+.nav-toggle .hamburger-icon span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.nav-toggle .hamburger-icon span:nth-child(3) { bottom: 0; }
+.nav-toggle.active .hamburger-icon span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+.nav-toggle.active .hamburger-icon span:nth-child(2) { opacity: 0; }
+.nav-toggle.active .hamburger-icon span:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+/* --- Hero Section (Página Principal) --- */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 4rem 0 5rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; opacity: 0.15; z-index: 0; }
+.hero::before { width: 300px; height: 300px; background: white; top: -100px; left: -100px; }
+.hero::after { width: 400px; height: 400px; background: white; bottom: -150px; right: -150px; }
+.hero .container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.hero-content { max-width: 700px; }
+.hero-content h2 { font-size: 3rem; color: white; margin-bottom: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+.hero-content p { font-size: 1.2rem; margin-bottom: 1.5rem; opacity: 0.9; }
+.hero-image { max-width: 350px; }
+.hero-image img { width: 100%; height: auto; border-radius: var(--border-radius-main); box-shadow: var(--box-shadow-strong); }
+
+/* --- NUEVO: Estilos para Hero Secundario (Páginas Internas) --- */
+.hero-secondary {
+    background-color: var(--secondary-color);
+    /* Alternativa con degradado más sutil: */
+    /* background: linear-gradient(135deg, var(--secondary-color) 0%, #00aA88 100%); */
+    color: white;
+    padding: 2.5rem 0; /* Menos padding que el hero principal */
+    text-align: center;
+    margin-bottom: 2rem; /* Espacio antes de la ToC o contenido */
+}
+.hero-secondary h1 {
+    font-size: 2.6rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+.hero-secondary .subtitle {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 750px;
+    margin: 0 auto;
+    font-family: var(--font-family-base);
+    line-height: 1.6;
+}
+
+
+/* --- Botones --- */
+.btn { display: inline-block; background-color: var(--accent-color); color: var(--text-color); padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: var(--box-shadow-light); }
+.btn:hover, .btn:focus { background-color: #FFC107; color: var(--text-color); transform: translateY(-2px); text-decoration: none; box-shadow: var(--box-shadow-strong); }
+.btn.btn-secondary { background-color: var(--secondary-color); color: white; }
+.btn.btn-secondary:hover, .btn.btn-secondary:focus { background-color: #00A185; color: white; }
+.btn.btn-primary { background-color: var(--primary-color); color: white; } /* Nuevo botón primario */
+.btn.btn-primary:hover, .btn.btn-primary:focus { background-color: #E0559A; color: white; }
+
+
+/* --- Sección de Tarjetas (Página Principal) --- */
+.secciones-cards { padding: 4rem 0; }
+.secciones-cards > .container > h3 { text-align: center; font-size: 2.5rem; color: var(--primary-color); margin-bottom: 2.5rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+.card { background-color: var(--card-background); border-radius: var(--border-radius-main); padding: 1.8rem; text-align: center; text-decoration: none; color: var(--text-color); box-shadow: var(--box-shadow-light); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; align-items: center; height: 100%; }
+.card:hover, .card:focus { transform: translateY(-5px); box-shadow: var(--box-shadow-strong); text-decoration: none; color: var(--text-color); }
+.card .card-icon-svg { width: var(--icon-size-large); height: var(--icon-size-large); margin-bottom: 1rem; fill: var(--primary-color); stroke: none; }
+.card h4 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+.card p { font-size: 0.95rem; color: var(--light-text-color); flex-grow: 1; }
+
+/* --- Estilos para Páginas de Contenido --- */
+.content-section { padding: 1.5rem 0 2.5rem 0; } /* Ajuste de padding */
+.content-section article { background-color: var(--card-background); padding: 2.5rem; border-radius: var(--border-radius-main); box-shadow: var(--box-shadow-light); margin-bottom: 2rem; }
+.content-section article h2 { margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 3px solid var(--accent-color); }
+.content-section article h3 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.7rem; color: var(--primary-color); } /* H3 de contenido principal */
+.content-section article h4 { margin-top: 1.8rem; margin-bottom: 0.8rem; font-size: 1.35rem; color: var(--secondary-color); } /* H4 de contenido (ej. en acordeones) */
+.content-section article ul li::marker,
+.content-section article ol li::marker { color: var(--primary-color); font-weight: bold; }
+.content-section article ul { list-style-type: disc; }
+.content-section article ol { list-style-type: decimal; }
+/* Lista anidada para mejorar legibilidad */
+.nested-list {
+    list-style-type: circle; /* O 'square' */
+    margin-left: 20px; /* Indentación para listas anidadas */
+    margin-top: 0.5em;
+}
+.nested-list li {
+    font-size: 0.95em; /* Ligeramente más pequeño */
+}
+
+/* --- NUEVO: Estilos para la Tabla de Contenidos (ToC) --- */
+.toc-section {
+    background-color: transparent; /* Sin fondo extra, usa el del body */
+    padding: 0 0 1.5rem 0; /* Solo padding inferior */
+    margin-bottom: 1.5rem;
+}
+.toc-container {
+    background-color: #fff; /* Fondo blanco para la caja de ToC */
+    padding: 1.5rem 2rem;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--box-shadow-light);
+    border: 1px solid #efefef;
+}
+.toc-container h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+}
+#pageToc {
+    list-style: none;
+    padding-left: 0;
+    columns: 2; /* Dos columnas si el espacio lo permite */
+    gap: 2rem;
+}
+#pageToc li { margin-bottom: 0.7rem; }
+#pageToc li a {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1rem;
+    display: block;
+    padding: 0.3rem 0.2rem;
+    border-left: 3px solid transparent;
+    transition: color 0.2s ease, padding-left 0.2s ease, border-left-color 0.2s ease;
+}
+#pageToc li a:hover, #pageToc li a:focus {
+    color: var(--primary-color);
+    padding-left: 0.8rem;
+    text-decoration: none;
+    border-left-color: var(--primary-color);
+}
+#pageToc ul { /* Subniveles en la ToC */
+    padding-left: 1.2rem;
+    margin-top: 0.4rem;
+    list-style: none;
+    border-left: 1px dashed #ddd; /* Línea para indicar jerarquía */
+}
+#pageToc ul li a {
+    font-weight: normal;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+#pageToc ul li a:hover, #pageToc ul li a:focus {
+    color: var(--secondary-color);
+    border-left-color: var(--secondary-color);
+}
+
+
+/* --- NUEVO: Estilos para Subsecciones de Contenido --- */
+.subsection {
+    margin-top: 2.5rem; /* Más espacio entre subsecciones */
+    padding: 1.5rem;
+    padding-left: 2rem;
+    border-left: 4px solid var(--accent-color);
+    background-color: #fdfcff; /* Fondo muy sutil para la subsección */
+    border-radius: 0 var(--border-radius-main) var(--border-radius-main) 0; /* Redondeo solo a la derecha */
+    margin-bottom: 1.5rem; /* Espacio después de la subsección */
+}
+.subsection:first-of-type { /* La primera subsección dentro de un article */
+    margin-top: 1.5rem;
+}
+.subsection h3 { /* H3 dentro de .subsection */
+    font-size: 1.7rem;
+    color: var(--secondary-color); /* Diferenciar de los H3 de contenido principal */
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.subsection h3 .inline-icon-svg { /* Icono que acompaña al H3 de la subsección */
+    fill: var(--secondary-color);
+    width: calc(var(--icon-size-small) + 6px);
+    height: calc(var(--icon-size-small) + 6px);
+}
+.subsection h4 { /* H4 dentro de .subsection (ej. en listas de acordeones) */
+    font-size: 1.3rem;
+    color: var(--primary-color); /* Darle otro color para distinguir */
+    margin-top: 1.5rem;
+    margin-bottom: 0.7rem;
+}
+
+
+/* --- NUEVO: Estilos para Listas Personalizadas --- */
+.custom-list { list-style: none; padding-left: 0; }
+.custom-list li { padding-left: 2.2em; position: relative; margin-bottom: 0.8em; line-height: 1.6; }
+.custom-list li::before {
+    content: '';
+    position: absolute;
+    left: 0.2em; /* Ajuste de posición del icono */
+    top: 0.15em; /* Ajuste vertical */
+    width: 1.5em;
+    height: 1.5em;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Estilos específicos para cada tipo de lista (usar SVG como background-image) */
+/* Es mejor insertar los SVG directamente en el HTML con class="inline-icon-svg" antes del texto del li */
+/* Pero si quieres usar ::before, aquí un ejemplo con un SVG data URI (se vuelve largo) */
+.check-list-primary li::before {
+    content: ''; /* Se recomienda usar SVG inline para más control de color */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF69B4'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+.check-list-secondary li::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300C49F'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+.arrow-list-primary li::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF69B4'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+}
+.arrow-list-secondary li::before {
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300C49F'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+}
+.star-list li::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+}
+.dot-list li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-size: 1.8em;
+    line-height: 0.8; /* Ajustar para centrar el punto */
+    left: 0.3em;
+    top: 0.05em;
+}
+.gear-list li::before {
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300C49F'%3E%3Cpath d='M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12-.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z'/%3E%3C/svg%3E");
+}
+
+.numbered-list-secondary { /* Para la lista de elementos de programación */
+    list-style: none;
+    padding-left: 0;
+    counter-reset: numbered-list-counter;
+}
+.numbered-list-secondary li {
+    counter-increment: numbered-list-counter;
+    padding-left: 2.5em;
+    position: relative;
+    margin-bottom: 1em;
+}
+.numbered-list-secondary li::before {
+    content: counter(numbered-list-counter);
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    background-color: var(--secondary-color);
+    color: white;
+    font-family: var(--font-family-headings);
+    font-weight: 700;
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    line-height: 1;
+}
+
+
+.image-container { text-align: center; margin: 2rem 0; background-color: #fff; padding: 1rem; border-radius: var(--border-radius-main); border: 1px solid #eee; }
+.image-container img { max-width: 90%; height: auto; border-radius: calc(var(--border-radius-main) - 5px); display: block; margin: 0 auto 0.8rem auto; }
+.image-caption { font-size: 0.9rem; color: var(--light-text-color); font-style: italic; }
+
+/* --- NUEVO: Estilo para la Caja de Conclusión --- */
+.conclusion-box {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 2.5rem;
+    border-radius: var(--border-radius-main);
+    margin-top: 2rem;
+    box-shadow: var(--box-shadow-strong);
+}
+.conclusion-box h2 {
+    color: white; /* Título de conclusión en blanco */
+    border-bottom-color: rgba(255,255,255,0.5); /* Borde más sutil */
+}
+.conclusion-box h2 .heading-icon-svg {
+    fill: white; /* Icono de conclusión en blanco */
+}
+.conclusion-box p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+}
+.conclusion-box strong {
+    color: var(--accent-color); /* Resaltar strong con color de acento */
+}
+.conclusion-box .custom-list li::before { /* Ajustar color de iconos de lista si se usan aquí */
+    /* Ejemplo: si es una check-list */
+    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E"); */
+}
+.conclusion-box .image-container {
+    background-color: rgba(255,255,255,0.1); /* Fondo sutil para imagen dentro de conclusión */
+    border-color: rgba(255,255,255,0.2);
+}
+.conclusion-box .image-caption {
+    color: rgba(255,255,255,0.7);
+}
+
+
+/* Sección de Enlace Siguiente/Anterior */
+.navigation-link-section { padding: 2.5rem 0; text-align: center; background-color: #FFF9FC; margin-top: 2rem; border-top: 1px solid #eee; }
+.navigation-link-section p { font-size: 1.3rem; margin-bottom: 1.5rem; font-family: var(--font-family-headings); color: var(--secondary-color); }
+
+/* Footer */
+footer { background-color: var(--footer-bg); color: var(--footer-text); text-align: center; padding: 2.5rem 0; margin-top: 3rem; }
+footer p { margin: 0; font-size: 0.9rem; opacity: 0.8; }
+footer a { color: var(--accent-color); }
+footer a:hover, footer a:focus { color: white; }
+
+/* Acordeones */
+.accordion-container { margin-top: 2rem; border: 1px solid #e0e0e0; border-radius: var(--border-radius-main); overflow: hidden; }
+.accordion-item { border-bottom: 1px solid #e0e0e0; }
+.accordion-item:last-child { border-bottom: none; }
+.accordion-header { background-color: #f9f9f9; color: var(--text-color); cursor: pointer; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s ease; }
+.accordion-header:hover, .accordion-header:focus { background-color: #f0f0f0; }
+.accordion-header h4 { margin: 0; font-size: 1.3rem; color: var(--text-color); font-family: var(--font-family-base); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;}
+.accordion-header h4 .inline-icon-svg { fill: var(--primary-color); } /* Icono dentro del título H4 del acordeón */
+.accordion-icon { width: var(--icon-size-small); height: var(--icon-size-small); flex-shrink: 0; margin-left: 1rem; transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.accordion-icon svg { width: 80%; height: 80%; stroke: var(--primary-color); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.accordion-header.active .accordion-icon svg .vertical-line { transform: rotate(90deg); transform-origin: center; } /* Hace que el + se convierta en - */
+.accordion-header.active .accordion-icon { /* Si se quiere una 'x' en lugar de '-', rotar todo el icono */ /* transform: rotate(45deg); */ }
+.accordion-content { background-color: var(--card-background); max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out, padding 0.35s ease-out; padding: 0 1.5rem; }
+.accordion-content > *:first-child { margin-top: 1rem; }
+.accordion-content > *:last-child { margin-bottom: 1rem; }
+.accordion-content h5 { /* Para subtítulos dentro del contenido del acordeón */
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    font-family: var(--font-family-base);
+    font-weight: 700;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Juego de Memoria */
+.game-section { background-color: #fff; padding: 2rem 0; border-radius: var(--border-radius-main); margin-top: 2rem; }
+.game-section article h2 { border-bottom: none; text-align: center; margin-bottom: 1.5rem; color: var(--secondary-color); }
+.memory-game { width: 100%; max-width: 600px; margin: 1.5rem auto 2rem auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; perspective: 1000px; }
+.memory-card { width: 100%; aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: var(--box-shadow-light); border-radius: 8px; cursor: pointer; }
+.memory-card.flip { transform: rotateY(180deg); }
+.memory-card.match { opacity: 0.7; cursor: default; transform: rotateY(180deg) scale(0.95); box-shadow: 0 0 10px var(--accent-color); }
+.front-face, .back-face { width: 100%; height: 100%; padding: 10%; position: absolute; border-radius: 8px; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+.front-face { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); z-index: 2; }
+.front-face .card-pattern-svg { width: 70%; height: 70%; opacity: 0.2; fill: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.back-face { background-color: #f0f8ff; transform: rotateY(180deg); }
+.back-face img { max-width: 100%; max-height: 100%; object-fit: contain; }
+#resetMemoryGame { display: block; margin: 1.5rem auto 0 auto; }
+
+/* Audio Player */
+.audio-example { background-color: #E6FFFA; border: 1px solid var(--secondary-color); padding: 1rem; border-radius: var(--border-radius-main); margin: 1.5rem 0; text-align: center; }
+.audio-example p { margin-bottom: 0.8rem; font-weight: 600; color: var(--secondary-color); }
+.audio-example audio { width: 100%; max-width: 350px; }
+
+
+/* Grid para principios metodológicos */
+.grid-container-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.principle-card {
+    background-color: var(--background-color); /* Fondo ligeramente diferente */
+    padding: 1.5rem;
+    border-radius: var(--border-radius-main);
+    border: 1px dashed var(--primary-color); /* Borde punteado */
+    text-align: center;
+}
+.principle-card .inline-icon-svg { /* Icono dentro de la tarjeta de principio */
+    width: var(--icon-size-medium); /* Icono más grande */
+    height: var(--icon-size-medium);
+    fill: var(--primary-color);
+    margin-bottom: 0.8rem;
+}
+.principle-card h4 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-family-base); /* Fuente base para estos H4 */
+    font-weight: 700;
+}
+
+
+/* --- Media Queries para Responsive Design --- */
+@media (max-width: 992px) {
+    .hero .container { flex-direction: column; text-align: center; }
+    .hero-content, .hero-image { max-width: 90%; }
+    .card-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    #pageToc { columns: 1; /* ToC a una columna en tablet */ }
+}
+
+@media (max-width: 768px) {
+    html { font-size: 15px; }
+    body { padding-top: 75px; }
+    header .logo a { font-size: 1.6rem; }
+    header .logo .site-icon-svg { width: 25px; height: 25px; }
+    header nav { display: none; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--header-bg); box-shadow: var(--box-shadow-light); padding: 1rem 0; }
+    header nav.active { display: block; }
+    header nav ul { flex-direction: column; align-items: center; }
+    header nav ul li { margin: 0.8rem 0; width: 100%; text-align: center; }
+    header nav ul li a { padding: 0.8rem 1rem; display: block; border-bottom: none; }
+    header nav ul li a:hover, header nav ul li a.active { background-color: var(--background-color); color: var(--primary-color); border-bottom: none; }
+    .nav-toggle { display: block; order: 1; }
+
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.6rem; }
+    .hero-secondary h1 { font-size: 2.2rem; }
+    .hero-secondary .subtitle { font-size: 1.1rem; }
+
+    .hero { padding: 3rem 0 4rem 0; }
+    .hero-content h2 { font-size: 2.5rem; }
+    .hero-content p { font-size: 1.1rem; }
+
+    .content-section article { padding: 1.5rem; }
+    .subsection { padding-left: 1rem; padding-right: 1rem;}
+    .subsection h3 { font-size: 1.5rem;}
+    .subsection h4 { font-size: 1.25rem;}
+
+    .memory-game { grid-template-columns: repeat(3, 1fr); }
+    .grid-container-principles { grid-template-columns: 1fr; } /* Principios a una columna */
+}
+
+@media (max-width: 480px) {
+    html { font-size: 14px; }
+    body { padding-top: 70px; }
+    header .logo a { font-size: 1.4rem; }
+    header .logo .site-icon-svg { width: 22px; height: 22px; }
+    .hero-content h2 { font-size: 2.2rem; }
+    .btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .memory-game { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .front-face, .back-face { padding: 5%; }
+    .accordion-header h4 { font-size: 1.1rem; }
+    .accordion-header { padding: 0.8rem 1rem; }
+    .accordion-content { padding: 0 1rem; }
+    .hero-secondary h1 { font-size: 1.9rem; }
+    .toc-container { padding: 1rem 1.2rem;}
+    #pageToc li a { font-size: 0.9rem;}
+    #pageToc ul { padding-left: 0.8rem; }
+    .subsection h3 { font-size: 1.4rem;}
+}
